@@ -1,0 +1,138 @@
+<!doctype html>
+<html ⚡>
+
+<head>
+    <meta charset="utf-8">
+  <title>HouseInfo</title>
+    <link rel="canonical" href="https://ampbyexample.com/advanced/tab_panels_with_amp-selector/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- #### Setup -->
+    <!-- Import `amp-selector` component in the header which we'll use to implement the tab switching. -->
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <!-- Import `amp-carousel` component in the header which we'll use as a sample tab content -->
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <!-- Import `amp-bind` component in the header which we'll use to switch tabs via buttons -->
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <!-- There's just a bit of css that's needed -->
+    <style amp-custom>       
+        .ampTabContainer {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .tabButton[selected] {
+            outline: none;
+            background: #ccc;
+        }
+        
+        .tabButton {
+            list-style: none;
+            flex-grow: 1;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .tabContent {
+            display: none;
+            width: 100%;
+            order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+            border: 1px solid #ccc;
+        }
+        
+        .tabButton[selected]+.tabContent {
+            display: block;
+        }
+
+        /* For example below (not required) */
+        .itemCustom {
+            border: 1px solid #000;
+            height: 280px;
+            width: 380px;
+            margin: 10px;
+            text-align: center;
+            padding-top: 140px;
+        }
+        amp-selector {
+          padding: 1rem;
+          margin: 1rem;
+        }
+      .bold{
+        font-weight: bold
+      }
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <!-- adding metadata for the entrypoint -->
+    <script type="application/ld+json">
+       {
+         "@context": {
+           "@vocab": "http://schema.org",
+           "g": "http://developers.google.com/lens",
+         },
+         "@type": "ARArtifact",
+         "anchor": {
+           "@type": "ARCompositeAnchor",
+           "anchor": {
+             "@type": "ARMarker",
+             "markerValue": "https://ssl.cdn-redfin.com/photo/8/mbpaddedwide/618/genMid.ML81683618_4.jpg",
+             "markerType": "image"
+           },
+           "nearby": {
+             "@type": "Place",
+             "address": {
+               "@type": "PostalAddress",
+               "addressLocality": "East Palo Alto",
+               "addressRegion": "CA",
+               "postalCode": "94303",
+               "streetAddress": "2234 Ralmar Ave"
+             }
+           }
+         },
+         "asset": {
+           "@type": "WebPage",
+           "name": "HouseInfo: 2234 Ralmar Ave",
+           "description": "Real estate information for 2234 Ralmar Ave",
+           "image": "http://example.com/icon.png",
+           "url": "<URL where your Lenslet is hosted>"
+         }
+       }
+    </script>
+
+</head>
+<body>
+    <!--
+    ####  Amp component as the panel
+    You can have just about anything as `tabContent` - the `amp-carousel` is a good example of a more complex component being used.
+    -->
+    <div id="content">
+      <amp-selector role="tablist" layout="container" class="ampTabContainer">
+        <div role="tab" class="tabButton" selected option="a">Overview</div>
+        <div role="tabpanel" class="tabContent">
+            <amp-carousel height="300" layout="fixed-height" type="carousel">
+                <amp-img src="https://ssl.cdn-redfin.com/photo/8/bigphoto/618/ML81683618_4.jpg" width="400" height="300" alt="a sample image"></amp-img>
+                <amp-img src="https://a0.muscache.com/im/pictures/dbab0860-bd37-42d1-8684-334e3cda1394.jpg?aki_policy=xx_large" width="400" height="300" alt="another sample image"></amp-img>
+                <amp-img src="https://a0.muscache.com/im/pictures/dff312b1-6cf5-4266-855e-1a71f4664ba7.jpg?aki_policy=xx_large" width="400" height="300" alt="and another sample image"></amp-img>
+                <amp-img src="https://a0.muscache.com/im/pictures/7a6e40d6-9071-46b1-8224-8b20b0dbff6b.jpg?aki_policy=xx_large" width="400" height="300" alt="and another sample image"></amp-img>  
+          </amp-carousel>
+          <div> 
+            <h2>2234 Ralmar Avenue</h2>
+            <p> <span class="bold">Redfin Estimate: </span> $775,808 </p>
+            <p> <span class="bold">Last Sold Price: </span> $668,000 </p>
+            <p> <span class="bold">Square Footage: </span> 730 sq ft </p>
+            <p> <span class="bold">Built: </span> 1953 </p>     
+         </div>
+        </div>
+        <div role="tab" class="tabButton" option="b">Neighborhood</div>
+        <div role="tabpanel" class="tabContent">
+            <div> 
+              <h2>Neighborhood Info for 2234 Ralmar Ave</h2>
+              <p> <span class="bold">Transportation in 94303: </span> 39/100, Car Dependent </p>
+              <p> <span class="bold">94303 Sales(Last 30 days): </span> Median list price of 1,299,500 </p> 
+           </div>
+        </div>
+    </amp-selector>
+    </div>
+</body>
+
+</html>
