@@ -70,25 +70,19 @@
            "@vocab": "http://schema.org",
            "g": "http://developers.google.com/lens"
          },
+         
          "@type": "ARArtifact",
          "anchor": {
-           "@type": "ARCompositeAnchor",
-           "anchor": {
-             "@type": "ARMarker",
-             "markerValue": "https://ssl.cdn-redfin.com/photo/8/mbpaddedwide/618/genMid.ML81683618_4.jpg",
-             "markerType": "image"
-           },
-           "nearby": {
-             "@type": "Place",
-             "address": {
+           "@type": "Place",
+           "address": {
                "@type": "PostalAddress",
                "addressLocality": "East Palo Alto",
                "addressRegion": "CA",
                "postalCode": "94303",
                "streetAddress": "2234 Ralmar Ave"
              }
-           }
          },
+
          "asset": {
            "@type": "WebPage",
            "name": "HouseInfo: 2234 Ralmar Ave",
@@ -125,6 +119,7 @@
         <div role="tab" class="tabButton" option="b">Neighborhood</div>
         <div role="tabpanel" class="tabContent">
             <div> 
+              <p id="demo"> </p>
               <h2>Neighborhood Info for 2234 Ralmar Ave</h2>
               <p> <span class="bold">Transportation in 94303: </span> 39/100, Car Dependent </p>
               <p> <span class="bold">94303 Sales(Last 30 days): </span> Median list price of 1,299,500 </p> 
@@ -135,3 +130,81 @@
 </body>
 
 </html>
+
+<script>
+console.log("hel3")
+var text, parser, xmlDoc;
+
+text = "<UpdatedPropertyDetails:updatedPropertyDetails xmlns:UpdatedPropertyDetails=\"http://www.zillow.com/static/xsd/UpdatedPropertyDetails.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zillow.com/static/xsd/UpdatedPropertyDetails.xsd https://www.zillowstatic.com/vstatic/b20c067/static/xsd/UpdatedPropertyDetails.xsd">
+<request>
+<zpid>48749425</zpid>
+</request>
+<message>
+<text>Request successfully processed</text>
+<code>0</code>
+</message>
+<response>
+<zpid>48749425</zpid>
+<pageViewCount>
+<currentMonth>1</currentMonth>
+<total>1</total>
+</pageViewCount>
+<address>
+<street>2114 Bigelow Ave N</street>
+<zipcode>98109</zipcode>
+<city>SEATTLE</city>
+<state>WA</state>
+<latitude>47.637934</latitude>
+<longitude>-122.347936</longitude>
+</address>
+<links>
+<homeDetails>
+https://www.zillow.com/homedetails/2114-Bigelow-Ave-N-Seattle-WA-98109/48749425_zpid/
+</homeDetails>
+<photoGallery>
+https://www.zillow.com/homedetails/2114-Bigelow-Ave-N-Seattle-WA-98109/48749425_zpid/#image=lightbox%3Dtrue
+</photoGallery>
+<homeInfo>
+https://www.zillow.com/homedetails/2114-Bigelow-Ave-N-Seattle-WA-98109/48749425_zpid/
+</homeInfo>
+</links>
+<images>
+<count>1</count>
+<image>
+<url>
+https://photos.zillowstatic.com/p_d/ISxb3qa8s1cwx01000000000.jpg
+</url>
+</image>
+</images>
+<editedFacts>
+<useCode>SingleFamily</useCode>
+<bedrooms>4</bedrooms>
+<bathrooms>3.0</bathrooms>
+<finishedSqFt>3470</finishedSqFt>
+<lotSizeSqFt>4680</lotSizeSqFt>
+<yearBuilt>1924</yearBuilt>
+<yearUpdated>2003</yearUpdated>
+<numFloors>2</numFloors>
+<basement>Finished</basement>
+<roof>Composition</roof>
+<view>Water, City, Mountain</view>
+<parkingType>Off-street</parkingType>
+<heatingSources>Gas</heatingSources>
+<heatingSystem>Forced air</heatingSystem>
+<rooms>
+Laundry room, Walk-in closet, Master bath, Office, Dining room, Family room, Breakfast nook
+</rooms>
+</editedFacts>
+<neighborhood>Queen Anne</neighborhood>
+<schoolDistrict>Seattle</schoolDistrict>
+<elementarySchool>John Hay</elementarySchool>
+<middleSchool>McClure</middleSchool>
+</response>
+</UpdatedPropertyDetails:updatedPropertyDetails>";
+
+parser = new DOMParser();
+xmlDoc = parser.parseFromString(text,"text/xml");
+
+document.getElementById("demo").innerHTML =
+xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+</script>
